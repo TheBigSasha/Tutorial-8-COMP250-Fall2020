@@ -109,7 +109,7 @@ public class ListofLinksTester {
 
     }
 
-    @benchmark(name="our stack's push")
+    @benchmark(name="push()", category="tutorial 8")
     public static long pushTest(long input){
         //We make a stack and fill it to the SIZE which is INPUT
         Stack<Integer> s = new Stack<Integer>();
@@ -124,7 +124,7 @@ public class ListofLinksTester {
         return endTime-startTime;
     }
 
-    @benchmark(name="our stack's pop")
+    @benchmark(name="pop()", category="tutorial 8")
     public static long popTest(long input){
         //We make a stack and fill it to the SIZE which is INPUT
         Stack<Integer> s = new Stack<Integer>();
@@ -138,7 +138,7 @@ public class ListofLinksTester {
         return endTime-startTime;
     }
 
-    @benchmark(name = "our get")
+    @benchmark(name = "get()" , category="tutorial 8")
     public static long getTest(long input){
         //We make a stack and fill it to the SIZE which is INPUT
         Stack<Integer> s = new Stack<Integer>();
@@ -152,7 +152,7 @@ public class ListofLinksTester {
         return endTime-startTime;
     }
 
-    @benchmark(name = "our getFaster")
+    @benchmark(name = "getFaster()", category="tutorial 8")
     public static long getFasterTest(long input){
         //We make a stack and fill it to the SIZE which is INPUT
         Stack<Integer> s = new Stack<Integer>();
@@ -199,6 +199,16 @@ public class ListofLinksTester {
         for(int i = 0; i < test.length; i++){
             System.out.println(s.dequeue());
         }
+    }
+
+    @benchmark(name = "recursive traversal", category = "tutorial 8")
+    public static long testIterator(long input){
+        return 0l; //TODO: write this
+    }
+
+    @benchmark(name = "recursive traversal", category="tutorial 8")
+    public static long testRecursiveTraversal(long input){
+        return 0l;//TODO: Write this
     }
 
 

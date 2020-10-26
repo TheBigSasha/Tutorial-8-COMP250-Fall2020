@@ -159,7 +159,7 @@ public class ListOfLinks<E> implements Iterable<E>{
         size--;
     }
 
-    public String toString() {
+/*    public String toString() {            // we are replacing this with a recursive solution
         //Print all the stuff in this list, comma separated!
         if(this.isEmpty()) return "";               //This caused a crash because we did not consider null when pritning
         StringBuilder sb = new StringBuilder();     //We create a mutable string
@@ -170,7 +170,7 @@ public class ListOfLinks<E> implements Iterable<E>{
 
         }
         return sb.toString();                              //return our thing
-    }
+    }*/
 
     /**
      * Returns an iterator over elements of type {@code T}.
@@ -178,7 +178,7 @@ public class ListOfLinks<E> implements Iterable<E>{
      * @return an Iterator.
      */
     @Override
-    public Iterator<E> iterator() {
+    public Iterator<E> iterator() { //TODO: Speed optimize
         return new Iterator<E>() {
 
             int counter =0;
@@ -245,6 +245,19 @@ public class ListOfLinks<E> implements Iterable<E>{
         public void setData(E data) {
             this.data = data;
         }
+
+    }
+
+    public int recursiveSizeCheck(){
+        return 0;   //TODO: This recursively
+    }
+
+    public int indexOf(E data){
+        return 0; //TODO: This recursively
+    }
+
+    public String toString(){
+        return null; //TODO: This recursively
 
     }
 }
