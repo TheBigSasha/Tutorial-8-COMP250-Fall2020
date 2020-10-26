@@ -7,6 +7,7 @@ import java.util.*;
 
 public class ListofLinksTester {
     public static void main(String args[]){
+        testRecursions();
         testQueueMethods();
         for(int i = 0; i < 1500; i++){
             if(!testRemoveFromSizeN(i)) System.out.println("Test failed to remove at size " + i);
@@ -31,15 +32,24 @@ public class ListofLinksTester {
 
     }
 
-
+    private static void testRecursions(){
+        ListOfLinks<String> list = new ListOfLinks<>();
+        fillList(15, list);
+        System.out.println(list.size() + " " + list.recursiveSizeCheck());
+        String s = list.get(7);
+        System.out.println(s);
+        System.out.println(list.indexOf(s));
+        System.out.println(list.indexOf("Hello world"));
+        System.out.println(list);
+    }
 
 
     public static void fillList(int numberOfThings, ListOfLinks<String> list){
         Random rand = new Random();
         for(int i = 0; i < numberOfThings; i++){
-            if(rand.nextInt(50) == 2){//This makes it spicy
+          /*  if(rand.nextInt(50) == 2){//This makes it spicy
                 list.add(null);
-            }else{
+            }else*/{
                 list.add("Test " + rand.nextInt(5555) +" " + i);
             }
         }
@@ -201,16 +211,21 @@ public class ListofLinksTester {
         }
     }
 
-    @benchmark(name = "recursive traversal", category = "tutorial 8")
+    @benchmark(name = "test iterator", category = "tutorial 8")
     public static long testIterator(long input){
-        return 0l; //TODO: write this
+        ListOfLinks<String> tester = new ListOfLinks<>();
+        fillList((int) input, tester);
+
+        long startTime = System.nanoTime();
+        for(String s : tester){
+
+        }
+        long endTime = System.nanoTime();
+        return endTime - startTime;
     }
 
     @benchmark(name = "recursive traversal", category="tutorial 8")
     public static long testRecursiveTraversal(long input){
         return 0l;//TODO: Write this
     }
-
-
-
 }

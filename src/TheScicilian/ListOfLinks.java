@@ -1,5 +1,6 @@
 package TheScicilian;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -144,7 +145,7 @@ public class ListOfLinks<E> implements Iterable<E>{
         removeLast();
         return data;
     }
-    //TODO: We fixed this method! Maybe test and fix the rest if you want practice, and notice which ones are O(1), O(N), etc.
+
     public void removeLast() {
         if(this.size == 0){
             return;
@@ -178,10 +179,10 @@ public class ListOfLinks<E> implements Iterable<E>{
      * @return an Iterator.
      */
     @Override
-    public Iterator<E> iterator() { //TODO: Speed optimize
+    public Iterator<E> iterator() {
         return new Iterator<E>() {
 
-            int counter =0;
+            ListNode<E> current = head;
 
             /**
              * Returns {@code true} if the iteration has more elements.
@@ -192,7 +193,7 @@ public class ListOfLinks<E> implements Iterable<E>{
              */
             @Override
             public boolean hasNext() {
-                return counter < size;
+                return !(current == null || current.next == null);
             }
 
             /**
@@ -202,8 +203,8 @@ public class ListOfLinks<E> implements Iterable<E>{
              */
             @Override
             public E next() {
-                E cur = getFaster(counter);
-                counter++;
+                E cur = current.data;
+                current = current.next;
                 return cur;
             }
         };
@@ -249,15 +250,37 @@ public class ListOfLinks<E> implements Iterable<E>{
     }
 
     public int recursiveSizeCheck(){
-        return 0;   //TODO: This recursively
+        if(isEmpty()) return 0;
+        return recursiveSizeCheck(1, head);
+    }
+
+    private int recursiveSizeCheck(int input, ListNode<E> tested){
+        if(tested == null || tested.next == null) return input;
+        return recursiveSizeCheck(input + 1, tested.next);
     }
 
     public int indexOf(E data){
-        return 0; //TODO: This recursively
+        int counter = 0;
+        return indexOf(counter, head, data);
     }
 
-    public String toString(){
-        return null; //TODO: This recursively
+    private int indexOf(int input, ListNode<E> tested, E data){
+        if(tested.next == null) return -1; //Or you can throw an exception or return null or whatever
+        if(tested.data.equals(data)) return input;
+        return indexOf(input + 1, tested.next, data);
+    }
 
+
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        if(isEmpty()) return "";
+        return recursiveToString(head, sb);
+    }
+
+    private String recursiveToString(ListNode<E> node, StringBuilder sb){
+        sb.append(node.data.toString());
+        if(node.next != null) sb.append(", ");
+        if(node.next == null) return sb.toString();
+        return recursiveToString(node.next, sb);
     }
 }
