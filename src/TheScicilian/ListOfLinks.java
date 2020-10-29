@@ -181,7 +181,7 @@ public class ListOfLinks<E> implements Iterable<E>{
     public Iterator<E> iterator() { //TODO: Speed optimize
         return new Iterator<E>() {
 
-            int counter =0;
+            ListNode<E> current = head;
 
             /**
              * Returns {@code true} if the iteration has more elements.
@@ -192,7 +192,7 @@ public class ListOfLinks<E> implements Iterable<E>{
              */
             @Override
             public boolean hasNext() {
-                return counter < size;
+                return current != null;
             }
 
             /**
@@ -202,9 +202,9 @@ public class ListOfLinks<E> implements Iterable<E>{
              */
             @Override
             public E next() {
-                E cur = getFaster(counter);
-                counter++;
-                return cur;
+                E data = current.getData();
+                current = current.next();
+                return data;
             }
         };
     }
@@ -249,15 +249,49 @@ public class ListOfLinks<E> implements Iterable<E>{
     }
 
     public int recursiveSizeCheck(){
-        return 0;   //TODO: This recursively
+        return recursiveSizeCheckHelper(0, head);
+
     }
 
+    private int recursiveSizeCheckHelper(int size, ListNode<E> node){
+        size++;
+        if(node.next != null) {
+            return recursiveSizeCheckHelper(size, node.next);
+        }else{
+            return size;
+        }
+
+    }
+
+
     public int indexOf(E data){
-        return 0; //TODO: This recursively
+        return recursiveIndexHelper(0, data, head);
+    }
+
+    private int recursiveIndexHelper(int index, E data, ListNode<E> node){
+        if(node.data.equals(data)) return index;
+        if(node.next != null){
+            index++;
+            return recursiveIndexHelper(index, data, node.next);
+        }else{
+            return -1;
+        }
+
     }
 
     public String toString(){
-        return null; //TODO: This recursively
+        StringBuilder sb = new StringBuilder();
+        return recursiveToStringHelper(sb, head);
+    }
+
+    private String recursiveToStringHelper(StringBuilder sb, ListNode<E> node){
+        sb.append(node.data);
+        if(node.next != null){
+            sb.append(", ");
+            return recursiveToStringHelper(sb, node.next);
+        }else{
+            return sb.toString();
+        }
 
     }
 }
